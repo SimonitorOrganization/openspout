@@ -176,15 +176,25 @@ class WorksheetManager implements WorksheetManagerInterface
 
         // create nodes for merge cells
         if ($this->optionsManager->getOption(Options::MERGE_CELLS)) {
-            $mergeCellString = '<mergeCells count="'.\count($this->optionsManager->getOption(Options::MERGE_CELLS)).'">';
-            foreach ($this->optionsManager->getOption(Options::MERGE_CELLS) as $values) {
-                $output = array_map(function ($value) {
-                    return CellHelper::getColumnLettersFromColumnIndex($value[0]).$value[1];
-                }, $values);
-                $mergeCellString .= '<mergeCell ref="'.implode(':', $output).'"/>';
+            $mergeCells = $this->optionsManager->getOption(Options::MERGE_CELLS);
+            $mergeCells = array_filter($mergeCells, function ($mergeCell) use ($worksheet) {
+                return (int)$mergeCell[2] === (int)$worksheet->getId();
+            });
+            $mergeCells = array_map(function ($mergeCell) {
+                unset($mergeCell[2]);
+                return $mergeCell;
+            }, $mergeCells);
+            if (!empty($mergeCells)){
+                $mergeCellString = '<mergeCells count="'.\count($mergeCells).'">';
+                foreach ($mergeCells as $values) {
+                    $output = array_map(function ($value) {
+                        return CellHelper::getColumnLettersFromColumnIndex($value[0]).$value[1];
+                    }, $values);
+                    $mergeCellString .= '<mergeCell ref="'.implode(':', $output).'"/>';
+                }
+                $mergeCellString .= '</mergeCells>';
+                fwrite($worksheet->getFilePointer(), $mergeCellString);
             }
-            $mergeCellString .= '</mergeCells>';
-            fwrite($worksheet->getFilePointer(), $mergeCellString);
         }
 
         fwrite($worksheetFilePointer, '</worksheet>');

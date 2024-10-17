@@ -60,12 +60,13 @@ class Writer extends WriterMultiSheetsAbstract
      *
      * @param int[] $range1 - top left cell's coordinate [column, row]
      * @param int[] $range2 - bottom right cell's coordinate [column, row]
+     * @param int $index - worksheet index
      *
      * @return $this
      */
-    public function mergeCells(array $range1, array $range2)
+    public function mergeCells(array $range1, array $range2, int $index = 1)
     {
-        $this->optionsManager->addOption(Options::MERGE_CELLS, [$range1, $range2]);
+        $this->optionsManager->addOption(Options::MERGE_CELLS, [$range1, $range2, $index]);
 
         return $this;
     }
