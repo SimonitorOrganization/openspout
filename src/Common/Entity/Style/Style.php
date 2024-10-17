@@ -60,6 +60,12 @@ class Style
     /** @var bool Whether the cell alignment property was set */
     private $hasSetCellAlignment = false;
 
+    private $shouldApplyCellVerticalAlignment = false;
+    /** @var string Cell vertical alignment */
+    private $cellVerticalAlignment;
+    /** @var bool Whether the cell vertical alignment property was set */
+    private $hasSetCellVerticalAlignment = false;
+
     /** @var bool Whether the text should wrap in the cell (useful for long or multi-lines text) */
     private $shouldWrapText = false;
     /** @var bool Whether the wrap text property was set */
@@ -390,6 +396,42 @@ class Style
     public function shouldApplyCellAlignment()
     {
         return $this->shouldApplyCellAlignment;
+    }
+
+    public function getCellVerticalAlignment()
+    {
+        return $this->cellVerticalAlignment;
+    }
+
+    /**
+     * @param string $cellVerticalAlignment The cell vertical alignment
+     *
+     * @return Style
+     */
+    public function setCellVerticalAlignment($cellVerticalAlignment)
+    {
+        $this->cellVerticalAlignment = $cellVerticalAlignment;
+        $this->hasSetCellVerticalAlignment = true;
+        $this->shouldApplyCellVerticalAlignment = true;
+        $this->isEmpty = false;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasSetCellVerticalAlignment()
+    {
+        return $this->hasSetCellVerticalAlignment;
+    }
+
+    /**
+     * @return bool Whether specific cell vertical alignment should be applied
+     */
+    public function shouldApplyCellVerticalAlignment()
+    {
+        return $this->shouldApplyCellVerticalAlignment;
     }
 
     /**

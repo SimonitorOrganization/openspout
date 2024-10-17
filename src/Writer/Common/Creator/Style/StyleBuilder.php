@@ -4,6 +4,7 @@ namespace OpenSpout\Writer\Common\Creator\Style;
 
 use OpenSpout\Common\Entity\Style\Border;
 use OpenSpout\Common\Entity\Style\CellAlignment;
+use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
 use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Common\Exception\InvalidArgumentException;
 
@@ -140,6 +141,26 @@ class StyleBuilder
         }
 
         $this->style->setCellAlignment($cellAlignment);
+
+        return $this;
+    }
+
+    /**
+     * Sets the cell vertical alignment.
+     *
+     * @param string $cellVerticalAlignment The cell alignment
+     *
+     * @throws InvalidArgumentException If the given cell alignment is not valid
+     *
+     * @return StyleBuilder
+     */
+    public function setCellVerticalAlignment($cellVerticalAlignment)
+    {
+        if (!CellVerticalAlignment::isValid($cellVerticalAlignment)) {
+            throw new InvalidArgumentException('Invalid cell alignment value');
+        }
+
+        $this->style->setCellVerticalAlignment($cellVerticalAlignment);
 
         return $this;
     }

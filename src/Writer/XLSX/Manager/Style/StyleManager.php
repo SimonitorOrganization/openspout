@@ -250,11 +250,18 @@ class StyleManager extends \OpenSpout\Writer\Common\Manager\Style\StyleManager
 
             $content .= sprintf(' applyBorder="%d"', $style->shouldApplyBorder() ? 1 : 0);
 
-            if ($style->shouldApplyCellAlignment() || $style->shouldWrapText() || $style->shouldShrinkToFit()) {
+            if ($style->shouldApplyCellAlignment()
+                || $style->shouldApplyCellVerticalAlignment()
+                || $style->shouldWrapText()
+                || $style->shouldShrinkToFit()
+            ) {
                 $content .= ' applyAlignment="1">';
                 $content .= '<alignment';
                 if ($style->shouldApplyCellAlignment()) {
                     $content .= sprintf(' horizontal="%s"', $style->getCellAlignment());
+                }
+                if ($style->shouldApplyCellVerticalAlignment()) {
+                    $content .= sprintf(' vertical="%s"', $style->getCellVerticalAlignment());
                 }
                 if ($style->shouldWrapText()) {
                     $content .= ' wrapText="1"';

@@ -79,6 +79,9 @@ class StyleMerger
         if (!$style->hasSetCellAlignment() && $baseStyle->shouldApplyCellAlignment()) {
             $styleToUpdate->setCellAlignment($baseStyle->getCellAlignment());
         }
+        if (!$style->hasSetCellVerticalAlignment() && $baseStyle->shouldApplyCellVerticalAlignment()) {
+            $styleToUpdate->setCellVerticalAlignment($baseStyle->getCellVerticalAlignment());
+        }
         if (null === $style->getBorder() && $baseStyle->shouldApplyBorder()) {
             $styleToUpdate->setBorder($baseStyle->getBorder());
         }
