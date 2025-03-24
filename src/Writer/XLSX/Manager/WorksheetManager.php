@@ -104,6 +104,7 @@ class WorksheetManager implements WorksheetManagerInterface
      */
     public function startSheet(Worksheet $worksheet)
     {
+        $this->columnWidths = $this->optionsManager->getOption(Options::COLUMN_WIDTHS) ?? [];
         $sheetFilePointer = fopen($worksheet->getFilePath(), 'w');
         $this->throwIfSheetFilePointerIsNotAvailable($sheetFilePointer);
 
