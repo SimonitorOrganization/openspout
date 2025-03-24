@@ -28,6 +28,11 @@ class Row
     protected $height = '15';
 
     /**
+     * Default row height
+     */
+    const DEFAULT_HEIGHT = '15';
+
+    /**
      * Row constructor.
      *
      * @param Cell[]     $cells
@@ -162,5 +167,13 @@ class Row
     public function getHeight()
     {
         return $this->height;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCustomHeight()
+    {
+        return(string)$this->height !== self::DEFAULT_HEIGHT;
     }
 }

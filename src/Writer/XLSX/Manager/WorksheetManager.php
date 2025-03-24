@@ -254,7 +254,7 @@ class WorksheetManager implements WorksheetManagerInterface
 
         $hasCustomHeight = $this->defaultRowHeight > 0 ? '1' : '0';
 
-        if ($row->getHeight() !== $this->defaultRowHeight) {
+        if ($row->hasCustomHeight()) {
             $rowXML = "<row r=\"{$rowIndexOneBased}\" ht=\"{$row->getHeight()}\" spans=\"1:{$numCells}\" customHeight=\"1\">";
         } else {
             $rowXML = "<row r=\"{$rowIndexOneBased}\" spans=\"1:{$numCells}\" customHeight=\"{$hasCustomHeight}\">";
